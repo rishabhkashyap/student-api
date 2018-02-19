@@ -1,0 +1,53 @@
+package com.student.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.student.entity.Course;
+import com.student.repository.CourseRepo;
+
+@Service
+public class CourseService {
+
+	@Autowired
+	private CourseRepo courseRepo;
+
+	public Course getCourseById(Long courseId) {
+		return courseRepo.findByCourseId(courseId);
+	}
+
+	public void updateCourse(Long CourseId, Course updatedCourse) {
+		Course course = courseRepo.findByCourseId(CourseId);
+		course.setCourseDescription(updatedCourse.getCourseDescription());
+		course.setCourseName(updatedCourse.getCourseName());
+		course.setInstructor(updatedCourse.getInstructor());
+		courseRepo.save(course);
+	}
+
+	public boolean courseExists(Course newCourse) {
+
+		Course course = courseRepo.findByCourseNameAndCourseDescriptionAndInstructor(newCourse.getCourseName(),
+				newCourse.getCourseDescription(), newCourse.getInstructor());
+		if (course == null) {
+			return false;
+		} else {
+			return course.equals(newCourse);
+		}
+
+	}
+
+	public Course saveCourse(Course course) {
+		if (course != null) {
+			return courseRepo.save(course);
+		}else {
+			return null;
+		}
+	}
+
+	public void deleteCourse(Course course) {
+		if (course != null) {
+			courseRepo.delete(course);
+		}
+	}
+
+}
