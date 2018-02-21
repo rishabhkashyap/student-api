@@ -2,6 +2,7 @@ package com.student.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.student.entity.Student;
 import com.student.repository.StudentRepo;
@@ -17,9 +18,8 @@ public class StudentService {
 	}
 
 	public boolean studentExist(Student newStudent) {
-		Student student = studentRepo.findByFirstnameAndLastnameAndEmailIdAndMobileNo(
-				newStudent.getFirstname(), newStudent.getLastname(),  newStudent.getEmailId(),
-				newStudent.getMobileNo());
+		Student student = studentRepo.findByFirstnameAndLastnameAndEmailIdAndMobileNo(newStudent.getFirstname(),
+				newStudent.getLastname(), newStudent.getEmailId(), newStudent.getMobileNo());
 		if (student == null) {
 			return false;
 		} else {
@@ -35,6 +35,7 @@ public class StudentService {
 
 	}
 
+	@Transactional
 	public void updateStudent(Long studentId, Student updatedStudent) {
 		Student student = studentRepo.findByStudentId(studentId);
 		student.setFirstname(updatedStudent.getFirstname());
@@ -42,12 +43,12 @@ public class StudentService {
 		student.setEmailId(updatedStudent.getEmailId());
 		student.setEnrolledCourses(updatedStudent.getEnrolledCourses());
 		student.setMobileNo(updatedStudent.getMobileNo());
-		studentRepo.save(student);
+		// studentRepo.save(student);
 
 	}
-	
+
 	public void deleteStudent(Student student) {
-		if(student!=null) {
+		if (student != null) {
 			studentRepo.delete(student);
 		}
 	}

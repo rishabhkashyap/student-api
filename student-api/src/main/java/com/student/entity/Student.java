@@ -31,7 +31,7 @@ public class Student {
 
 	@NotNull
 	private String mobileNo;
-	@OneToMany(mappedBy = "student" ,cascade=CascadeType.PERSIST ,orphanRemoval = true)
+	@OneToMany(mappedBy = "student" ,cascade=CascadeType.ALL)
 	
 	private List<EnrolledCourse> enrolledCourses;
 
@@ -89,12 +89,16 @@ public class Student {
 	}
 
 	public List<EnrolledCourse> getEnrolledCourses() {
-		return enrolledCourses;
+		return new ArrayList<>(enrolledCourses);
 	}
 
 	public void setEnrolledCourses(List<EnrolledCourse> enrolledCourses) {
 		this.enrolledCourses = enrolledCourses;
 		this.enrolledCourses.forEach(e->e.setStudent(this));
+	}
+	
+	public boolean isEnrolled(EnrolledCourse course) {
+		return this.enrolledCourses.contains(course);
 	}
 
 	

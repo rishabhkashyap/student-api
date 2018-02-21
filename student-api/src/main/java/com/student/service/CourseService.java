@@ -4,13 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.student.entity.Course;
+import com.student.entity.EnrolledCourse;
 import com.student.repository.CourseRepo;
+import com.student.repository.EnrolledCourseRepo;
 
 @Service
 public class CourseService {
 
 	@Autowired
 	private CourseRepo courseRepo;
+	@Autowired
+	private EnrolledCourseRepo enrolledCourseRepo;
 
 	public Course getCourseById(Long courseId) {
 		return courseRepo.findByCourseId(courseId);
@@ -47,6 +51,7 @@ public class CourseService {
 	public void deleteCourse(Course course) {
 		if (course != null) {
 			courseRepo.delete(course);
+			enrolledCourseRepo.deleteByCourseId(course.getCourseId());
 		}
 	}
 
