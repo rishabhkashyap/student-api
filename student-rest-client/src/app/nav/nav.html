@@ -23,7 +23,7 @@
 
         <a href="#course" data-toggle="collapse" aria-expanded="false">Course</a>
         <ul class="collapse list-unstyled" id="course">
-          <li><a href="#">Add</a></li>
+          <li><a [routerLink]="['/add-course']">Add</a></li>
           <li><a href="#">Update</a></li>
           <li><a href="#">Delete</a></li>
         </ul>
@@ -64,6 +64,7 @@
         </div>
       </div>
     </nav>
+    <router-outlet></router-outlet>'
 
 
   </div>

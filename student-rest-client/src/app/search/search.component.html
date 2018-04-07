@@ -1,0 +1,12 @@
+<div class="col-sm-offset-4">
+  <form class="form-inline">
+
+    <div class="form-group mx-sm-3 mb-2">
+      <input type="text" class="form-control" [(ngModel)]="courseId"  id="inputPassword2" placeholder="Search"  [ngModelOptions]="{standalone: true}">
+    </div>
+    <button type="button" class="btn btn-primary mb-2" (click)="getCourseData()">Search</button>
+    {{courseName}}
+  </form>
+
+</div>
+
