@@ -1,5 +1,7 @@
 package com.student.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,70 +32,82 @@ import com.student.service.CourseService;
 public class CourseController {
 	@Autowired
 	CourseService courseService;
-	
+
 	@GetMapping("/course/{courseId}")
-	public ResponseEntity<Course> getCourseData(@PathVariable Long courseId)throws ResourceNotFoundException {
-		Course course=courseService.getCourseById(courseId);
-		
-		if(course!=null) {
-			return new ResponseEntity<Course>(course,HttpStatus.OK);
-		}else {
+	public ResponseEntity<Course> getCourseData(@PathVariable Long courseId) throws ResourceNotFoundException {
+		Course course = courseService.getCourseById(courseId);
+
+		if (course != null) {
+			return new ResponseEntity<Course>(course, HttpStatus.OK);
+		} else {
 			throw new ResourceNotFoundException(courseId);
 		}
-		
-		
+
 	}
 	
+	@GetMapping("/courses")
+	public ResponseEntity<List<Course>> getAllCourse() throws ResourceNotFoundException{
+		List courses = courseService.getAllCourses();
+		if(courses!=null && courses.size()>0){
+			return new ResponseEntity<List<Course>>(courses,HttpStatus.OK);
+		}else{
+			throw new ResourceNotFoundException("Courses does not exist"); 
+		}
+		
+	}
+
 	@PostMapping("/course/create")
-	public ResponseEntity createCourse(@Valid @RequestBody Course newCourse,BindingResult result) throws ResourceAlreadyExistException {
-		if(result.hasErrors()) {
+	public ResponseEntity createCourse(@Valid @RequestBody Course newCourse, BindingResult result)
+			throws ResourceAlreadyExistException {
+		if (result.hasErrors()) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result.getFieldError());
-		}else {
-			if(courseService.courseExists(newCourse)) {
+		} else {
+			if (courseService.courseExists(newCourse)) {
 				throw new ResourceAlreadyExistException("Course already exist.Try adding new course");
-			}else {
-				Course course=courseService.saveCourse(newCourse);
-				if(course!=null) {
-					return new  ResponseEntity(new StudentResponse(StudentMessage.COURSE_CREATED,StudentStatusCode.RESOURCE_CREATED.getValue()),HttpStatus.CREATED);
-				}else {
-					return new  ResponseEntity(HttpStatus.BAD_REQUEST);
+			} else {
+				Course course = courseService.saveCourse(newCourse);
+				if (course != null) {
+					return new ResponseEntity(new StudentResponse(StudentMessage.COURSE_CREATED,
+							StudentStatusCode.RESOURCE_CREATED.getValue()), HttpStatus.CREATED);
+				} else {
+					return new ResponseEntity(HttpStatus.BAD_REQUEST);
 				}
-				
+
 			}
-			
+
 		}
 	}
-	
+
 	@DeleteMapping("/course/{courseId}")
 	public ResponseEntity deleteCourse(@PathVariable Long courseId) throws ResourceNotFoundException {
-		Course course=courseService.getCourseById(courseId);
-		
-		if(course!=null) {
+		Course course = courseService.getCourseById(courseId);
+
+		if (course != null) {
 			courseService.deleteCourse(course);
-			return new ResponseEntity(course,HttpStatus.OK);
-		}else {
+			return new ResponseEntity(course, HttpStatus.OK);
+		} else {
 			throw new ResourceNotFoundException(courseId);
 		}
-		
-		
+
 	}
+
 	@PutMapping("/course/{courseId}")
-	public ResponseEntity updateCourse(@PathVariable Long courseId,@Valid @RequestBody Course updatedCourse,BindingResult result) throws ResourceAlreadyExistException ,ResourceNotFoundException{
-		if(result.hasErrors()) {
+	public ResponseEntity updateCourse(@PathVariable Long courseId, @Valid @RequestBody Course updatedCourse,
+			BindingResult result) throws ResourceAlreadyExistException, ResourceNotFoundException {
+		if (result.hasErrors()) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(updatedCourse);
-		}else {
-			Course course=courseService.getCourseById(courseId);
-			if(course==null) {
+		} else {
+			Course course = courseService.getCourseById(courseId);
+			if (course == null) {
 				throw new ResourceNotFoundException(courseId);
-			}else if(course.equals(updatedCourse)) {
+			} else if (course.equals(updatedCourse)) {
 				throw new ResourceAlreadyExistException("No update is made");
-			}else {
-				
+			} else {
+
 				courseService.updateCourse(courseId, updatedCourse);
-				return new ResponseEntity(HttpStatus.OK);
+				return new ResponseEntity(new StudentResponse(StudentMessage.COURSE_UPDATED,StudentStatusCode.RESOURCE_UPDATED.getValue()),HttpStatus.OK);
 			}
-			
-			
+
 		}
 	}
 

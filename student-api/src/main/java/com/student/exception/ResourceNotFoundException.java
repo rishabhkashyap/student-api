@@ -6,6 +6,10 @@ public class ResourceNotFoundException extends Exception {
 		super("Resource with id  "+id+" not found");
 		
 	}
+	public ResourceNotFoundException(String message) {
+		super(message);
+		
+	}
 	
 
 }
