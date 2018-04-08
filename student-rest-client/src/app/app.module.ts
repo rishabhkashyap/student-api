@@ -1,3 +1,4 @@
+import { UpdateCourseComponent } from './course/UpdateCourse.component';
 import { CourseService } from './services/course.service';
 import { AddCourseComponent } from './course/addCourse.component';
 import { FormsModule } from '@angular/forms';
@@ -21,7 +22,8 @@ import { AppComponent } from './app.component';
     AppComponent,
     NavBarComponent,
     SearchComponent,
-    AddCourseComponent
+    AddCourseComponent,
+    UpdateCourseComponent
   ],
   imports: [
     BrowserModule,

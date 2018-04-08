@@ -19,8 +19,6 @@ import { ViewContainerRef } from '@angular/core';
 export class AddCourseComponent {
 
   course: Course;
-  message: string;
-  httpStatus: string;
   apiError: ApiError;
 
   constructor(private courseService: CourseService, private toastr: ToastsManager, private vcr: ViewContainerRef) {
@@ -35,24 +33,18 @@ export class AddCourseComponent {
       .subscribe((data) => {
         if (data != null) {
           console.log('server response = ' + data);
-          this.message = data.getMessage();
-          this.httpStatus = data.getHttpStatus();
-          this.toastr.success(this.message);
+          this.toastr.success(data.getMessage());
         }
       },
       (error) => {
         if (error != null) {
           this.apiError = new ApiError(error);
-          this.message = this.apiError.getMessage();
-          this.httpStatus = this.apiError.getHttpStatus();
-          this.toastr.error(this.message);
-        } else {
-          this.message = 'Something went wrong';
-          this.toastr.error(this.message);
-        }
-      }
+          this.toastr.error(this.apiError.getMessage());
+      } else {
+        this.toastr.error('Something went wrong.Try again later..');
 
-      );
+      }
+    });
 
 
   }

@@ -1,0 +1,95 @@
+<div>
+	<form class="form-horizontal" #searchCourseForm="ngForm" (ngSubmit)="getCourseData(searchCourseForm.value)">
+
+		<div class="col-lg-offset-5">
+			<div class="col-sm-6">
+				<input type="text" class="form-control" name="courseId" #courseIdRef="ngModel" ngModel placeholder="Search course you want to update"
+					required pattern="[0-9]*">
+				<div *ngIf="courseIdRef.errors &&(courseIdRef.dirty||courseIdRef.touched)" class="alert alert-danger">
+					Please enter a valid number.
+				</div>
+			</div>
+
+
+			<button type="submit" class="btn btn-primary mb-2" [disabled]="!searchCourseForm.valid">Search</button>
+		</div>
+
+	</form>
+
+	<br/><br/><br/><br/>
+
+	<div *ngIf="isCourseDataAvaialable">
+
+		<form class="form-horizontal" #updateCourseForm="ngForm" (ngSubmit)="updateCourse(updateCourseForm.value)">
+			<div class="form-group">
+				<div class="col-lg-offset-3">
+					<label for="courseName" class="control-label col-xs-2">Course Id</label>
+					<div class="col-xs-8">
+						<input type="text" class="form-control" name="courseId" [(ngModel)]="courseId" readonly>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-lg-offset-3">
+					<label for="courseName" class="control-label col-xs-2">Course name</label>
+					<div class="col-xs-8">
+						<input type="text" class="form-control" name="courseName" #courseNameRef="ngModel" [(ngModel)]="courseName" placeholder="Enter course name"
+							minlength="4" required>
+					</div>
+				</div>
+				<div *ngIf="courseNameRef.errors &&(courseNameRef.dirty||courseNameRef.touched)" class="alert alert-danger  col-md-offset-5 col-xs-5">
+					<div [hidden]="!courseNameRef.errors.required">
+						Please enter course name.
+					</div>
+					<div [hidden]="!courseNameRef.errors.minlength">
+						Course name should be greater than 4 characters.
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-lg-offset-3">
+					<label for="instructor" class="control-label col-xs-2">Instructor</label>
+					<div class="col-xs-8">
+						<input type="text" class="form-control" name="instructor" #instructorRef="ngModel" [(ngModel)]="instructor" placeholder="Enter instructor for course"
+							required minlength="4">
+					</div>
+				</div>
+				<div *ngIf="instructorRef.errors &&(instructorRef.dirty||instructorRef.touched)" class="alert alert-danger  col-md-offset-5 col-xs-5">
+					<div [hidden]="!instructorRef.errors.required">
+						Please enter instructor name.
+					</div>
+					<div [hidden]="!instructorRef.errors.minlength">
+						Instructor name should be greater than 4 characters.
+					</div>
+				</div>
+
+			</div>
+			<div class="form-group">
+				<div class="col-lg-offset-3">
+					<label for="courseDescription" class="control-label col-xs-2">Course description</label>
+					<div class="col-xs-8">
+						<textarea class="form-control" rows="5" name="courseDescription" #courseDescriptionRef="ngModel" [(ngModel)]="courseDescription"
+							required minlength="10"></textarea>
+					</div>
+				</div>
+				<div *ngIf="courseDescriptionRef.errors &&(courseDescriptionRef.dirty||courseDescriptionRef.touched)" class="alert alert-danger  col-md-offset-5 col-xs-5">
+					<div [hidden]="!courseDescriptionRef.errors.required">
+						Please enter description of course .
+					</div>
+					<div [hidden]="!courseDescriptionRef.errors.minlength">
+						Description ofcourse should be greater than 10 characters
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-lg-offset-7 ">
+					<button type="submit" class="btn btn-primary" [disabled]="!updateCourseForm.valid">Update</button>
+				</div>
+			</div>
+		</form>
+	</div>
+
+
+
+</div>
