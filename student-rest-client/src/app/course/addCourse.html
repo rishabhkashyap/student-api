@@ -1,5 +1,6 @@
 <div>
-	<form class="form-horizontal" #addCourseForm="ngForm" (ngSubmit)="addCourse(addCourseForm.value)">
+
+	<form class="form-horizontal" #addCourseForm="ngForm" (ngSubmit)="onSubmit(addCourseForm.value)">
 		<div class="form-group">
 			<div class="col-lg-offset-3">
 				<label for="courseName" class="control-label col-xs-2">Course name</label>
