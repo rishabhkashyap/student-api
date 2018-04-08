@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,13 +16,17 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.student.constants.StudentMessage;
+import com.student.constants.StudentStatusCode;
 import com.student.entity.Course;
+import com.student.entity.StudentResponse;
 import com.student.exception.ResourceAlreadyExistException;
 import com.student.exception.ResourceNotFoundException;
 import com.student.repository.CourseRepo;
 import com.student.service.CourseService;
 
 @RestController
+@CrossOrigin
 public class CourseController {
 	@Autowired
 	CourseService courseService;
@@ -49,7 +54,7 @@ public class CourseController {
 			}else {
 				Course course=courseService.saveCourse(newCourse);
 				if(course!=null) {
-					return new  ResponseEntity(HttpStatus.CREATED);
+					return new  ResponseEntity(new StudentResponse(StudentMessage.COURSE_CREATED,StudentStatusCode.RESOURCE_CREATED.getValue()),HttpStatus.CREATED);
 				}else {
 					return new  ResponseEntity(HttpStatus.BAD_REQUEST);
 				}
