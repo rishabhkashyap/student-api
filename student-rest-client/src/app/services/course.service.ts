@@ -1,3 +1,4 @@
+import { httpFactory } from '@angular/http/src/http_module';
 import { ApiError } from './../model/ApiError.model';
 import { StudentResponse } from '../model/StudentResponse.model';
 
@@ -16,6 +17,7 @@ import 'rxjs/add/observable/throw';
 export class CourseService {
   CREATE_COURSE_URL = 'course/create';
   GET_COURSE_URL = '/course/';
+  ALL_COURSES_URL = 'courses';
   constructor(private http: Http) { }
 
   public addCourse(course: Course): Observable<any> {
@@ -33,7 +35,7 @@ export class CourseService {
   }
 
 
-  public getCourseById(courseId: string): Observable<any> {
+  public getCourseById(courseId: string): Observable<Course> {
     const header = new Headers();
     header.append('Content-Type', 'application/json');
     const options = new RequestOptions({ headers: header });
@@ -58,6 +60,22 @@ export class CourseService {
       .catch(response => {
         return Observable.throw(JSON.parse(response._body).apierror);
       });
+  }
+
+  public getAllCourses(): Observable<any> {
+    const header = new Headers();
+    header.append('Content-Type', 'application/json');
+    const options = new RequestOptions({ headers: header });
+    return this.http.get(serverDetails.baseURL + this.ALL_COURSES_URL, options)
+      .map((response: Response) => {
+        console.log('from service = ' + JSON.stringify(response.json()));
+        return response.json();
+      })
+      .catch(response => {
+        return Observable.throw(JSON.parse(response._body).apierror);
+      });
+
+
   }
 
 }

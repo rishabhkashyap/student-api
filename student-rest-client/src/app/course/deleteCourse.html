@@ -1,0 +1,66 @@
+<div class="row">
+  <div>
+
+
+
+    <div class="backdrop" [ngStyle]="{'display':display}">
+    </div>
+    <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+          <div class="modal-body">
+            <br /><br /><br />
+            <h4>Course will be deleted permanently.Are you sure you want to delte it?</h4>
+            <br /><br />
+
+            <div class="modal-footer">
+              <button type="button" class="btn  btn btn-primary" (click)="onDeleteCourse()">Yes</button>
+              <button type="button" class="btn  btn btn-default" (click)="onCloseHandled()">No</button>
+            </div>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal !-->
+
+
+  </div>
+
+  <div class="col-md-12 table-responsive-lg">
+    <div class="col-lg-offset-3">
+      <div class="form-group col-sm-10">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Course#</th>
+                <th>Course Name</th>
+                <th>Course Description</th>
+                <th>Instructor</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let course of courses">
+                <td>{{course.courseId}}</td>
+                <td>{{course.courseName}}</td>
+                <td>{{course.instructor}}</td>
+                <td>{{course.courseDescription}}</td>
+                <td><button type="button" class="btn btn-danger" (click)="openModal(course.courseId)">Delete</button></td>
+                <td></td>
+              </tr>
+
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+

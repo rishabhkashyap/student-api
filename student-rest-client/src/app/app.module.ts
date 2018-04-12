@@ -1,3 +1,5 @@
+import { DeleteWarningComponent } from './course/deleteWarning.component';
+import { DeleteCourseComponent } from './course/deleteCourse.component';
 import { UpdateCourseComponent } from './course/UpdateCourse.component';
 import { CourseService } from './services/course.service';
 import { AddCourseComponent } from './course/addCourse.component';
@@ -14,6 +16,7 @@ import {ToastModule} from 'ng2-toastr/ng2-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
+
 import { AppComponent } from './app.component';
 
 
@@ -23,7 +26,9 @@ import { AppComponent } from './app.component';
     NavBarComponent,
     SearchComponent,
     AddCourseComponent,
-    UpdateCourseComponent
+    UpdateCourseComponent,
+    DeleteCourseComponent,
+    DeleteWarningComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +37,7 @@ import { AppComponent } from './app.component';
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    ToastModule.forRoot()
+    ToastModule.forRoot(),
 
   ],
   providers: [CourseSearchService,
