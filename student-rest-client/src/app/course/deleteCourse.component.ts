@@ -26,7 +26,6 @@ export class DeleteCourseComponent implements OnInit {
       .subscribe(
       (data: Course[]) => {
         this.courses = data;
-        console.log('data = ' + JSON.stringify(data));
       }, (error: ApiError) => {
         if (error != null) {
           this.toastr.error(error.getMessage());
@@ -39,6 +38,22 @@ export class DeleteCourseComponent implements OnInit {
   }
   onDeleteCourse() {
     console.log('course id = ' + this.courseId);
+    this.courseService.deleteCourse(this.courseId)
+      .subscribe((data: Course) => {
+        if (data != null) {
+          this.courses = this.courses.filter(ele => ele.courseId !== data.courseId);
+          console.log('from  delete response    ' + JSON.stringify(this.courses));
+          this.toastr.success(data.courseName + 'is deleted successfully');
+        }
+      },
+      (data: ApiError) => {
+        if (data != null) {
+          this.toastr.error(data.getMessage());
+        } else {
+          this.toastr.error('Something went wrong!!');
+        }
+      });
+    this.display = 'none';
 
   }
 
@@ -52,7 +67,6 @@ export class DeleteCourseComponent implements OnInit {
   openModal(courseId: string) {
     this.display = 'block';
     this.courseId = courseId;
-    //console.log('course id = ' + courseId);
   }
 
 

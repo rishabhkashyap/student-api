@@ -78,4 +78,21 @@ export class CourseService {
 
   }
 
+  public deleteCourse(courseId: string): Observable<any> {
+    const header = new Headers();
+    header.append('Content-Type', 'application/json');
+    const options = new RequestOptions({ headers: header });
+    return this.http.delete(serverDetails.baseURL + this.GET_COURSE_URL + courseId, options)
+      .map(response => {
+        return new Course(response.json());
+      })
+      .catch(response => {
+        return Observable.throw(JSON.parse(response._body).apierror);
+      });
+
+
+
+
+  }
+
 }
