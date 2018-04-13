@@ -1,3 +1,4 @@
+import { NgForm } from '@angular/forms/src/directives';
 import { injectViewContainerRef } from '@angular/core/src/render3';
 import { ApiError } from '../model/ApiError.model';
 import { StudentResponse } from '../model/StudentResponse.model';
@@ -20,19 +21,23 @@ export class AddCourseComponent {
 
   course: Course;
   apiError: ApiError;
+   courseName: string;
+  instructor: string;
+  courseDescription: string;
 
   constructor(private courseService: CourseService, private toastr: ToastsManager, private vcr: ViewContainerRef) {
     this.toastr.setRootViewContainerRef(vcr);
 
   }
 
-  onSubmit(values: any) {
+  onSubmit(form: NgForm) {
 
-    this.course = new Course(values);
+    this.course = new Course(form.value);
     this.courseService.addCourse(this.course)
       .subscribe((data) => {
         if (data != null) {
           console.log('server response = ' + data);
+          form.reset();
           this.toastr.success(data.getMessage());
         }
       },

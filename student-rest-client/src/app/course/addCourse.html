@@ -1,11 +1,11 @@
 <div>
 
-	<form class="form-horizontal" #addCourseForm="ngForm" (ngSubmit)="onSubmit(addCourseForm.value)">
+	<form class="form-horizontal" #addCourseForm="ngForm" (ngSubmit)="onSubmit(addCourseForm)">
 		<div class="form-group">
 			<div class="col-lg-offset-3">
 				<label for="courseName" class="control-label col-xs-2">Course name</label>
 				<div class="col-xs-8">
-					<input type="text" class="form-control" name="courseName" #courseNameRef="ngModel" ngModel placeholder="Enter course name"
+					<input type="text" class="form-control" name="courseName" [(ngModel)]="courseName" #courseNameRef="ngModel" ngModel placeholder="Enter course name"
 						minlength="4" required>
 				</div>
 			</div>
@@ -22,7 +22,7 @@
 			<div class="col-lg-offset-3">
 				<label for="instructor" class="control-label col-xs-2">Instructor</label>
 				<div class="col-xs-8">
-					<input type="text" class="form-control" name="instructor" #instructorRef="ngModel" ngModel placeholder="Enter instructor for course"
+					<input type="text" class="form-control" name="instructor" [(ngModel)]="instructor" #instructorRef="ngModel" ngModel placeholder="Enter instructor for course"
 						required minlength="4">
 				</div>
 			</div>
@@ -40,7 +40,7 @@
 			<div class="col-lg-offset-3">
 				<label for="courseDescription" class="control-label col-xs-2">Course description</label>
 				<div class="col-xs-8">
-					<textarea class="form-control" rows="5" name="courseDescription" #courseDescriptionRef="ngModel" ngModel required minlength="10"></textarea>
+					<textarea class="form-control" rows="5" name="courseDescription" [(ngModel)]="courseDescription" #courseDescriptionRef="ngModel" ngModel required minlength="10"></textarea>
 				</div>
 			</div>
          <div *ngIf="courseDescriptionRef.errors &&(courseDescriptionRef.dirty||courseDescriptionRef.touched)" class="alert alert-danger  col-md-offset-5 col-xs-5">
@@ -61,3 +61,4 @@
 		</div>
 	</form>
 </div>
+
