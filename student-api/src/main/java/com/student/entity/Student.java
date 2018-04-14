@@ -28,10 +28,25 @@ public class Student {
 
 	@NotNull
 	private String emailId;
+	
+	private String gender;
 
 	@NotNull
 	private String mobileNo;
 	@OneToMany(mappedBy = "student" ,cascade=CascadeType.ALL)
+	
+	@NotNull
+	private String addressLine1;
+	
+	private String addressLine2;
+	
+	private String city;
+	
+	private String state;
+	
+	private String country;
+	
+	private String pincode;
 	
 	private List<EnrolledCourse> enrolledCourses;
 
@@ -100,8 +115,72 @@ public class Student {
 	public boolean isEnrolled(EnrolledCourse course) {
 		return this.enrolledCourses.contains(course);
 	}
+	
+	
+	
 
 	
+	public String getAddressLine1() {
+		return addressLine1;
+	}
+
+	public void setAddressLine1(String addressLine1) {
+		this.addressLine1 = addressLine1;
+	}
+
+	public String getAddressLine2() {
+		return addressLine2;
+	}
+
+	public void setAddressLine2(String addressLine2) {
+		this.addressLine2 = addressLine2;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getPincode() {
+		return pincode;
+	}
+
+	public void setPincode(String pincode) {
+		this.pincode = pincode;
+	}
+	
+	
+	
+	
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -111,27 +190,31 @@ public class Student {
 		if (getClass() != obj.getClass())
 			return false;
 		Student other = (Student) obj;
+		if (addressLine1 == null) {
+			if (other.addressLine1 != null)
+				return false;
+		} else if (!addressLine1.equals(other.addressLine1))
+			return false;
 		if (emailId == null) {
 			if (other.emailId != null)
 				return false;
 		} else if (!emailId.equals(other.emailId))
-			return false;
-		if (firstname == null) {
-			if (other.firstname != null)
-				return false;
-		} else if (!firstname.equals(other.firstname))
-			return false;
-		if (lastname == null) {
-			if (other.lastname != null)
-				return false;
-		} else if (!lastname.equals(other.lastname))
 			return false;
 		if (mobileNo == null) {
 			if (other.mobileNo != null)
 				return false;
 		} else if (!mobileNo.equals(other.mobileNo))
 			return false;
+		if (studentId == null) {
+			if (other.studentId != null)
+				return false;
+		} else if (!studentId.equals(other.studentId))
+			return false;
 		return true;
 	}
+	
+	
+
+
 
 }
