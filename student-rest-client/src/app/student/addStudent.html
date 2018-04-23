@@ -1,0 +1,202 @@
+
+
+<div class="">
+  <div>
+
+    <form class="form-horizontal" #addStudentForm="ngForm" (ngSubmit)="onSubmit(addStudentForm)">
+      <div class="form-group">
+        <div class="col-lg-offset-3">
+          <label for="firstname" class="control-label col-xs-2">First name</label>
+          <div class="col-xs-8">
+            <input type="text" class="form-control" name="firstname" [(ngModel)]="firstname" #firstnameRef="ngModel" ngModel placeholder="Enter first name"
+              minlength="4" required>
+          </div>
+        </div>
+        <div *ngIf="firstnameRef.errors && (firstnameRef.dirty||firstnameRef.touched)" class="alert alert-danger  col-md-offset-5 col-xs-5">
+          <div [hidden]="!firstnameRef.errors.required">
+            Please enter first name.
+          </div>
+          <div [hidden]="!firstnameRef.errors.minlength">
+            First name should be greater than 4 characters.
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-lg-offset-3">
+          <label for="lastname" class="control-label col-xs-2">Last name</label>
+          <div class="col-xs-8">
+            <input type="text" class="form-control" name="lastname" [(ngModel)]="lastname" #lastnameRef="ngModel" ngModel placeholder="Enter last name"
+              minlength="4" required>
+          </div>
+        </div>
+        <div *ngIf="lastnameRef.errors &&(lastnameRef.dirty||lastnameRef.touched)" class="alert alert-danger  col-md-offset-5 col-xs-5">
+          <div [hidden]="!lastnameRef.errors.required">
+            Please enter last name.
+          </div>
+          <div [hidden]="!lastnameRef.errors.minlength">
+            Last name should be greater than 4 characters.
+          </div>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <div class="col-lg-offset-3">
+          <label for="dob" class="control-label col-xs-2">Date of birth</label>
+          <div class="col-xs-8">
+            <input type="text" class="form-control" name="dob" [(ngModel)]="dob" #dobRef="ngModel" [bsConfig]="bsConfig" ngModel placeholder="MM/DD/YYYY"
+              required bsDatepicker>
+          </div>
+        </div>
+        <div *ngIf="dobRef.errors &&(dobRef.dirty||dobRef.touched)" class="alert alert-danger  col-md-offset-5 col-xs-5">
+          <div>
+            Please enter date of birth .
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-lg-offset-3">
+          <label for="email" class="control-label col-xs-2">Email</label>
+          <div class="col-xs-8">
+            <input type="email" class="form-control" name="email" [(ngModel)]="email" #emailRef="ngModel" ngModel placeholder="Enter email id"
+              required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+          </div>
+        </div>
+        <div *ngIf="emailRef.errors &&(emailRef.dirty||emailRef.touched)" class="alert alert-danger  col-md-offset-5 col-xs-5">
+          <div [hidden]="!emailRef.errors.required">
+            Please enter email id.
+          </div>
+          <div [hidden]="!emailRef.errors.pattern">
+            Please enter a valid email id
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-lg-offset-3">
+          <label for="mobNo" class="control-label col-xs-2">Mobile number</label>
+          <div class="col-xs-8">
+            <input type="text" class="form-control" name="mobNo" [(ngModel)]="mobNo" #mobNoRef="ngModel" ngModel placeholder="Enter mobile number"
+              minlength="10" required pattern="[0-9]*">
+          </div>
+        </div>
+        <div *ngIf="mobNoRef.errors &&(mobNoRef.dirty||mobNoRef.touched)" class="alert alert-danger  col-md-offset-5 col-xs-5">
+          <div [hidden]="!mobNoRef.errors.required">
+            Please enter mobile number.
+          </div>
+          <div [hidden]="!mobNoRef.errors.pattern">
+            Please enter valid mobile number.
+          </div>
+          <div [hidden]="!mobNoRef.errors.minlength">
+            Mobile number must have 10 digits.
+          </div>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <div class="col-lg-offset-3">
+          <label for="gender" class="control-label col-xs-2">Sex</label>
+          <div class="col-xs-8">
+            <select class="form-control" name="gender" [(ngModel)]="gender"  #genderRef="ngModel"   required>
+              <option value="defaultVal">Select a gender </option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+        </div>
+        <div *ngIf="gender=='defaultVal' && (genderRef.dirty||genderRef.touched)" class="alert alert-danger  col-md-offset-5 col-xs-5">
+          <div>
+            Please enter gender.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-lg-offset-3">
+          <label for="addressLine1" class="control-label col-xs-2">Address Line 1</label>
+          <div class="col-xs-8">
+            <input type="text" class="form-control" name="addressLine1" [(ngModel)]="instructor" #addressLine1Ref="ngModel"  placeholder="Address Line 1"
+              required minlength="4">
+          </div>
+        </div>
+        <div *ngIf="addressLine1Ref.errors &&(addressLine1Ref.dirty||addressLine1Ref.touched)" class="alert alert-danger  col-md-offset-5 col-xs-5">
+          <div [hidden]="!addressLine1Ref.errors.required">
+            Please enter valid address.
+          </div>
+          <div [hidden]="!addressLine1Ref.errors.minlength">
+            Please enter valid address.
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-lg-offset-3">
+          <label for="addressLine2" class="control-label col-xs-2">Address Line 2</label>
+          <div class="col-xs-8">
+            <input type="text" class="form-control" name="addressLine2" [(ngModel)]="addressLine2" #addressLine2Ref="ngModel"  placeholder="Address Line 2"/>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+          <div class="col-lg-offset-3">
+            <label for="firstname" class="control-label col-xs-2">Country</label>
+            <div class="col-xs-8">
+                <select class="form-control"  (change)="populateStates($event.target.value)" name="country" [(ngModel)]="country"  #countryRef="ngModel">
+                    <option selected="selected" value="defaultVal">Select a country </option>
+                    <option *ngFor="let AddressCountry of addressCountries ">{{AddressCountry.country}}</option>
+                  </select>
+            </div>
+          </div>
+          <div *ngIf="country=='defaultVal' && (countryRef.dirty||countryRef.touched)" class="alert alert-danger  col-md-offset-5 col-xs-5">
+            <div>
+              Please enter country.
+            </div>
+          </div>
+      </div>
+
+      <div class="form-group">
+          <div class="col-lg-offset-3">
+            <label for="firstname" class="control-label col-xs-2">State</label>
+            <div class="col-xs-8">
+                <select class="form-control"  name="state" [(ngModel)]="state"  #stateRef="ngModel">
+                    <option *ngFor="let state of states " [disabled]="!enableStates">{{state}}</option>
+                </select>
+            </div>
+          </div>
+          <div *ngIf="country=='defaultVal' && (countryRef.dirty||countryRef.touched)" class="alert alert-danger  col-md-offset-5 col-xs-5">
+            <div>
+              Please enter country.
+            </div>
+          </div>
+      </div>
+      <div class="form-group">
+        <div class="col-lg-offset-3">
+          <label for="pincode" class="control-label col-xs-2">Pincode</label>
+          <div class="col-xs-8">
+            <input type="text" class="form-control" name="pincode" [(ngModel)]="pincode" #pincodeRef="ngModel" ngModel placeholder="Enter pincode"
+              minlength="6" required  pattern="[0-9]*">
+          </div>
+        </div>
+        <div *ngIf="pincodeRef.errors && (pincodeRef.dirty||pincodeRef.touched)" class="alert alert-danger  col-md-offset-5 col-xs-5">
+          <div [hidden]="!pincodeRef.errors.required" >
+            Pincode is a required field.
+          </div>
+          <div [hidden]="!pincodeRef.errors.pattern">
+            Please enter valid pincode.
+          </div>
+          <div [hidden]="!pincodeRef.errors.minlength">
+            Pincode should contain 6 digits.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-lg-offset-6 ">
+          <button type="submit" class="btn btn-primary" [disabled]="!addStudentForm.valid">Submit</button>
+          <button type="reset" class="btn btn-default">clear</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+

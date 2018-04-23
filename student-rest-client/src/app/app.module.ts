@@ -1,3 +1,4 @@
+import { AddStudentComponent } from './student/addStudent.component';
 import { DeleteWarningComponent } from './course/deleteWarning.component';
 import { DeleteCourseComponent } from './course/deleteCourse.component';
 import { UpdateCourseComponent } from './course/UpdateCourse.component';
@@ -14,6 +15,7 @@ import { NgModule } from '@angular/core';
 import {HttpModule} from '@angular/http';
 import {ToastModule} from 'ng2-toastr/ng2-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 
 
@@ -28,7 +30,8 @@ import { AppComponent } from './app.component';
     AddCourseComponent,
     UpdateCourseComponent,
     DeleteCourseComponent,
-    DeleteWarningComponent
+    DeleteWarningComponent,
+    AddStudentComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +41,7 @@ import { AppComponent } from './app.component';
     FormsModule,
     BrowserAnimationsModule,
     ToastModule.forRoot(),
+    BsDatepickerModule.forRoot()
 
   ],
   providers: [CourseSearchService,

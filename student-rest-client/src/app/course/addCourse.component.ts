@@ -39,6 +39,8 @@ export class AddCourseComponent {
           console.log('server response = ' + data);
           form.reset();
           this.toastr.success(data.getMessage());
+        }else{
+          this.toastr.error('Something went wrong.Try again later..');
         }
       },
       (error) => {
