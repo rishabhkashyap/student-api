@@ -10,7 +10,7 @@ import { NgForm } from '@angular/forms/src/directives';
 })
 export class AddStudentComponent {
   addressCountries = countries;
-  states = [];
+  addressStates = [];
   isGenderValid: boolean;
   enableStates: boolean;
   bsConfig: Partial<BsDatepickerConfig>;
@@ -22,8 +22,7 @@ export class AddStudentComponent {
 
     this.bsConfig = Object.assign({}, { containerClass: 'theme-dark-blue' });
     this.gender = 'defaultVal';
-    this.country='defaultVal';
-    this.state = 'defaultVal'
+    this.country = 'defaultVal';
 
   }
 
@@ -31,9 +30,10 @@ export class AddStudentComponent {
     const selectedCountryStates = this.addressCountries.find(ele => ele.country === value).states;
     if (selectedCountryStates != null) {
       this.enableStates = true;
-      this.states = selectedCountryStates;
+      this.addressStates = selectedCountryStates;
+      this.state = this.addressStates[0];
     } else {
-      this.states = null;
+      this.addressStates = null;
       this.enableStates = false;
     }
   }
@@ -42,14 +42,22 @@ export class AddStudentComponent {
     console.log('Value = ' + value);
     if (this.gender === 'Select a gender' ) {
       this.isGenderValid = true;
-      console.log('gender = ' + this.gender);
 
     }
 
   }
 
   onSubmit(form: NgForm) {
-    console.log(form.value);
+    form.value.dob = new Date(form.value.dob).toLocaleDateString();
+    if ( form.value.addressLine2 === undefined) {
+      form.value.addressLine2 = '';
+
+    }
+    console.log( form.value );
+    console.log('AL2 = ' + form.value.addressLine2);
+  }
+  onSelect(selectedState: any) {
+    this.state = selectedState;
   }
 
 }

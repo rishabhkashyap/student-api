@@ -158,14 +158,10 @@
           <div class="col-lg-offset-3">
             <label for="firstname" class="control-label col-xs-2">State</label>
             <div class="col-xs-8">
-                <select class="form-control"  name="state" [(ngModel)]="state"  #stateRef="ngModel">
-                    <option *ngFor="let state of states " [disabled]="!enableStates">{{state}}</option>
+                <select class="form-control"  name="state" [(ngModel)]="state"  #stateRef="ngModel" >
+
+                    <option  *ngFor="let addressState of addressStates " [disabled]="!enableStates" [ngValue] ="addressState" >{{addressState}}</option>
                 </select>
-            </div>
-          </div>
-          <div *ngIf="country=='defaultVal' && (countryRef.dirty||countryRef.touched)" class="alert alert-danger  col-md-offset-5 col-xs-5">
-            <div>
-              Please enter country.
             </div>
           </div>
       </div>
