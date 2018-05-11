@@ -18,12 +18,12 @@ public class StudentService {
 	}
 
 	public boolean studentExist(Student newStudent) {
-		Student student = studentRepo.findByFirstnameAndLastnameAndEmailIdAndMobileNo(newStudent.getFirstname(),
-				newStudent.getLastname(), newStudent.getEmailId(), newStudent.getMobileNo());
+		Student student = studentRepo.findByEmailIdOrMobileNo(
+				newStudent.getEmailId(), newStudent.getMobileNo());
 		if (student == null) {
 			return false;
 		} else {
-			return student.equals(newStudent);
+			return true;
 		}
 
 	}

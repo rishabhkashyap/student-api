@@ -1,9 +1,11 @@
 package com.student.entity;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,16 +13,26 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cascade;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver;
+import com.student.exception.handler.LowerCaseClassNameResolver;
 
 @Entity
+//@JsonTypeIdResolver(LowerCaseClassNameResolver.class)
 public class Student {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long studentId;
 
 	@NotNull
+	//@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy")
 	private String firstname;
 
 	@NotNull
@@ -28,39 +40,46 @@ public class Student {
 
 	@NotNull
 	private String emailId;
-	
+
+	@NotNull
 	private String gender;
+
+	// @DateTimeFormat(iso = DateTimeFormat.ISO.NONE)
+	@Convert(converter = Jsr310JpaConverters.LocalDateConverter.class)
+	//@DateTimeFormat(pattern = "MM-dd-yyyy")
+	@NotNull
+	private LocalDate dob;
 
 	@NotNull
 	private String mobileNo;
-	@OneToMany(mappedBy = "student" ,cascade=CascadeType.ALL)
-	
+
+	@OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+	private List<EnrolledCourse> enrolledCourses;
+
 	@NotNull
 	private String addressLine1;
-	
+
 	private String addressLine2;
-	
-	private String city;
-	
+
+	// private String city;
+
 	private String state;
-	
+
 	private String country;
-	
+
 	private String pincode;
-	
-	private List<EnrolledCourse> enrolledCourses;
 
 	public Student() {
 		enrolledCourses = new ArrayList<>();
 	}
 
-	public Student(String firstname, String lastname, String emailId, String mobileNo) {
-		super();
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.emailId = emailId;
-		this.mobileNo = mobileNo;
-	}
+//	public Student(String firstname, String lastname, String emailId, String mobileNo) {
+//		super();
+//		this.firstname = firstname;
+//		this.lastname = lastname;
+//		this.emailId = emailId;
+//		this.mobileNo = mobileNo;
+//	}
 
 	public Long getStudentId() {
 
@@ -109,17 +128,13 @@ public class Student {
 
 	public void setEnrolledCourses(List<EnrolledCourse> enrolledCourses) {
 		this.enrolledCourses = enrolledCourses;
-		this.enrolledCourses.forEach(e->e.setStudent(this));
+		this.enrolledCourses.forEach(e -> e.setStudent(this));
 	}
-	
+
 	public boolean isEnrolled(EnrolledCourse course) {
 		return this.enrolledCourses.contains(course);
 	}
-	
-	
-	
 
-	
 	public String getAddressLine1() {
 		return addressLine1;
 	}
@@ -136,13 +151,13 @@ public class Student {
 		this.addressLine2 = addressLine2;
 	}
 
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
+	// public String getCity() {
+	// return city;
+	// }
+	//
+	// public void setCity(String city) {
+	// this.city = city;
+	// }
 
 	public String getState() {
 		return state;
@@ -167,10 +182,6 @@ public class Student {
 	public void setPincode(String pincode) {
 		this.pincode = pincode;
 	}
-	
-	
-	
-	
 
 	public String getGender() {
 		return gender;
@@ -180,6 +191,17 @@ public class Student {
 		this.gender = gender;
 	}
 
+	
+
+	public LocalDate getDob() {
+		return dob;
+	}
+
+	public void setDob(LocalDate dob) {
+		this.dob = dob;
+	}
+
+	
 
 	@Override
 	public boolean equals(Object obj) {
@@ -195,15 +217,60 @@ public class Student {
 				return false;
 		} else if (!addressLine1.equals(other.addressLine1))
 			return false;
+		if (addressLine2 == null) {
+			if (other.addressLine2 != null)
+				return false;
+		} else if (!addressLine2.equals(other.addressLine2))
+			return false;
+		if (country == null) {
+			if (other.country != null)
+				return false;
+		} else if (!country.equals(other.country))
+			return false;
+		if (dob == null) {
+			if (other.dob != null)
+				return false;
+		} else if (!dob.equals(other.dob))
+			return false;
 		if (emailId == null) {
 			if (other.emailId != null)
 				return false;
 		} else if (!emailId.equals(other.emailId))
 			return false;
+		if (enrolledCourses == null) {
+			if (other.enrolledCourses != null)
+				return false;
+		} else if (!enrolledCourses.equals(other.enrolledCourses))
+			return false;
+		if (firstname == null) {
+			if (other.firstname != null)
+				return false;
+		} else if (!firstname.equals(other.firstname))
+			return false;
+		if (gender == null) {
+			if (other.gender != null)
+				return false;
+		} else if (!gender.equals(other.gender))
+			return false;
+		if (lastname == null) {
+			if (other.lastname != null)
+				return false;
+		} else if (!lastname.equals(other.lastname))
+			return false;
 		if (mobileNo == null) {
 			if (other.mobileNo != null)
 				return false;
 		} else if (!mobileNo.equals(other.mobileNo))
+			return false;
+		if (pincode == null) {
+			if (other.pincode != null)
+				return false;
+		} else if (!pincode.equals(other.pincode))
+			return false;
+		if (state == null) {
+			if (other.state != null)
+				return false;
+		} else if (!state.equals(other.state))
 			return false;
 		if (studentId == null) {
 			if (other.studentId != null)
@@ -212,9 +279,7 @@ public class Student {
 			return false;
 		return true;
 	}
-	
-	
 
-
+	
 
 }
