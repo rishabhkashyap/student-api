@@ -1,4 +1,5 @@
 import { EnrolledCourses } from './EnrolledCourse.model';
+
 export class Student {
   firstname: string;
   lastname: string;
@@ -12,11 +13,11 @@ export class Student {
   city: string;
   state: string;
   country: string;
-  pincode:string;
+  pincode: string;
 
   constructor(values: Object = {}) {
-      Object.assign(this, values);
-    }
+    Object.assign(this, values);
+  }
 
 
 }

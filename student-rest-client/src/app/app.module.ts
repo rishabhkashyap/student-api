@@ -1,3 +1,4 @@
+import { StudentSerice } from './services/student.service';
 import { AddStudentComponent } from './student/addStudent.component';
 import { DeleteWarningComponent } from './course/deleteWarning.component';
 import { DeleteCourseComponent } from './course/deleteCourse.component';
@@ -12,8 +13,8 @@ import { SearchComponent } from './search/search.component';
 import { NavBarComponent } from './nav/nav.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {HttpModule} from '@angular/http';
-import {ToastModule} from 'ng2-toastr/ng2-toastr';
+import { HttpModule } from '@angular/http';
+import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
@@ -44,8 +45,10 @@ import { AppComponent } from './app.component';
     BsDatepickerModule.forRoot()
 
   ],
-  providers: [CourseSearchService,
-  CourseService
+  providers: [
+    CourseSearchService,
+    CourseService,
+    StudentSerice
   ],
   bootstrap: [AppComponent]
 })
