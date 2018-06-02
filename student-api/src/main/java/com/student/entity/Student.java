@@ -1,7 +1,9 @@
 package com.student.entity;
 
+
 import java.time.LocalDate;
 import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -17,11 +19,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cascade;
-import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver;
+
 import com.student.exception.handler.LowerCaseClassNameResolver;
 
 @Entity
@@ -44,9 +43,9 @@ public class Student {
 	@NotNull
 	private String gender;
 
-	// @DateTimeFormat(iso = DateTimeFormat.ISO.NONE)
-	@Convert(converter = Jsr310JpaConverters.LocalDateConverter.class)
-	//@DateTimeFormat(pattern = "MM-dd-yyyy")
+	// @LocalDateTimeFormat(iso = LocalDateTimeFormat.ISO.NONE)
+	//@Convert(converter = Jsr310JpaConverters.LocalDateConverter.class)
+	//@LocalDateTimeFormat(pattern = "yyyy-MM-dd")
 	@NotNull
 	private LocalDate dob;
 
@@ -76,13 +75,10 @@ public class Student {
 //	public Student(String firstname, String lastname, String emailId, String mobileNo) {
 //		super();
 //		this.firstname = firstname;
-//		this.lastname = lastname;
-//		this.emailId = emailId;
-//		this.mobileNo = mobileNo;
-//	}
+//	
+
 
 	public Long getStudentId() {
-
 		return studentId;
 	}
 
@@ -114,6 +110,22 @@ public class Student {
 		this.emailId = emailId;
 	}
 
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public LocalDate getDob() {
+		return dob;
+	}
+
+	public void setDob(LocalDate dob) {
+		this.dob = dob;
+	}
+
 	public String getMobileNo() {
 		return mobileNo;
 	}
@@ -123,16 +135,11 @@ public class Student {
 	}
 
 	public List<EnrolledCourse> getEnrolledCourses() {
-		return new ArrayList<>(enrolledCourses);
+		return enrolledCourses;
 	}
 
 	public void setEnrolledCourses(List<EnrolledCourse> enrolledCourses) {
 		this.enrolledCourses = enrolledCourses;
-		this.enrolledCourses.forEach(e -> e.setStudent(this));
-	}
-
-	public boolean isEnrolled(EnrolledCourse course) {
-		return this.enrolledCourses.contains(course);
 	}
 
 	public String getAddressLine1() {
@@ -150,14 +157,6 @@ public class Student {
 	public void setAddressLine2(String addressLine2) {
 		this.addressLine2 = addressLine2;
 	}
-
-	// public String getCity() {
-	// return city;
-	// }
-	//
-	// public void setCity(String city) {
-	// this.city = city;
-	// }
 
 	public String getState() {
 		return state;
@@ -182,26 +181,10 @@ public class Student {
 	public void setPincode(String pincode) {
 		this.pincode = pincode;
 	}
-
-	public String getGender() {
-		return gender;
+	public boolean isEnrolled(EnrolledCourse course) {
+		return this.enrolledCourses.contains(course);
 	}
 
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-
-	
-
-	public LocalDate getDob() {
-		return dob;
-	}
-
-	public void setDob(LocalDate dob) {
-		this.dob = dob;
-	}
-
-	
 
 	@Override
 	public boolean equals(Object obj) {

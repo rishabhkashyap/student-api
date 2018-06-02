@@ -55,7 +55,7 @@ public class StudentController {
 	}
 	
 	@PostMapping("/student/create")
-	public ResponseEntity createStudent(@Valid @RequestBody Student student,BindingResult result) throws ResourceAlreadyExistException {
+	public ResponseEntity createStudent(@Valid @RequestBody Student  student,BindingResult result) throws ResourceAlreadyExistException {
 		if(result.hasErrors()) {
 			return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result.getAllErrors());
 		}
