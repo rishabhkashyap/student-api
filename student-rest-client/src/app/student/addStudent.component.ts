@@ -8,6 +8,8 @@ import { NgForm } from '@angular/forms/src/directives';
 import { StudentResponse } from '../model/StudentResponse.model';
 import { ApiError } from '../model/ApiError.model';
 import { DatePipe } from '@angular/common' ;
+import { DatepickerOptions } from 'ng2-datepicker';
+import * as frLocale from 'date-fns/locale/fr';
 
 
 @Component({
@@ -27,12 +29,20 @@ export class AddStudentComponent {
   apiError: ApiError;
 
   constructor(private studentService: StudentSerice, private toastr: ToastsManager,
-     private vcr: ViewContainerRef) {
+     private vcr: ViewContainerRef ) {
 
-    this.bsConfig = Object.assign({}, { containerClass: 'theme-dark-blue' });
+    this.bsConfig = Object.assign(
+      {},
+      { containerClass: 'theme-dark-blue',
+      showWeekNumbers: false,
+      dateInputFormat: 'YYYY-MM-DD'
+       });
     this.gender = 'defaultVal';
     this.country = 'defaultVal';
     this.toastr.setRootViewContainerRef(vcr);
+
+
+
 
 
   }
@@ -60,19 +70,30 @@ export class AddStudentComponent {
   }
 
   onSubmit(form: NgForm) {
+      //let dtStr: string = form.value.dob;
+      //const pos: number = dtStr.indexOf('-', 0 );
+    // if ( form.value.dob !== undefined && form.value.dob !== null && pos === -1) {
+    //   const  dt: Date = form.value.dob;
 
-    if ( form.value.dob !== undefined && form.value.dob !== null) {
-      const  dt: Date = form.value.dob;
-      if ( form.value.dob.length > 10) {
-        const dtStrArr: any = dt.toLocaleDateString().split('/');
-        form.value.dob = dtStrArr[2] + '-' + dtStrArr[0] + '-' + dtStrArr[1];
-      }
+    //     const dtStrArr: string[] = dt.toLocaleDateString().split('/');
+    //     const day = parseInt(dtStrArr[1] , 10);
+    //     if (day < 10  ) {
+    //       dtStrArr[1] = '0' + dtStrArr[1];
+    //     }
+    //     if ( dt.getMonth() < 9 ) {
+    //       dtStrArr[0] = '0' + dtStrArr[0];
+
+    //     }
+    //     form.value.dob = dtStrArr[2] + '-' + dtStrArr[0] + '-' + dtStrArr[1];
 
 
 
-     // form.value.dob = dt.format();
-     console.log('dt = ' + form.value.dob.length);
-    }
+
+    //  // form.value.dob = dt.format();
+    //  console.log('dt = ' + form.value.dob.length);
+    // }
+    const datePipe = new DatePipe('en-US');
+    form.value.dob = datePipe.transform(form.value.dob,'yyyy-MM-dd');
 
     if ( form.value.addressLine2 === undefined) {
       form.value.addressLine2 = '';

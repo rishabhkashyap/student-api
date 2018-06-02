@@ -17,6 +17,7 @@ import { HttpModule } from '@angular/http';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { NgDatepickerModule } from 'ng2-datepicker';
 
 
 
@@ -42,7 +43,8 @@ import { AppComponent } from './app.component';
     FormsModule,
     BrowserAnimationsModule,
     ToastModule.forRoot(),
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    NgDatepickerModule
 
   ],
   providers: [

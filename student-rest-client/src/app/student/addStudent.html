@@ -44,8 +44,8 @@
         <div class="col-lg-offset-3">
           <label for="dob" class="control-label col-xs-2">Date of birth</label>
           <div class="col-xs-8">
-            <input type="text" class="form-control" name="dob" [(ngModel)]="dob" #dobRef="ngModel" [bsConfig]="bsConfig" ngModel placeholder="MM/DD/YYYY"
-              required bsDatepicker>
+            <input  class="form-control" name="dob" [(ngModel)]="dob" #dobRef="ngModel" [bsConfig]="bsConfig" ngModel placeholder="MM/DD/YYYY" required bsDatepicker>
+
           </div>
         </div>
         <div *ngIf="dobRef.errors &&(dobRef.dirty||dobRef.touched)" class="alert alert-danger  col-md-offset-5 col-xs-5">
